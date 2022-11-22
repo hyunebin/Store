@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @Getter
 public enum ErrorCode {
-    ALREADY_REG_USER(HttpStatus.BAD_REQUEST, "이미 가입된 유저 입니다.");
+    ALREADY_REG_USER(HttpStatus.BAD_REQUEST, "이미 가입된 유저 입니다."),
+    NOT_EXIST_USER(HttpStatus.BAD_REQUEST, "유저가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String description;
