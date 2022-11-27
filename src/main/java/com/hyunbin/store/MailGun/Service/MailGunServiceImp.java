@@ -39,7 +39,7 @@ public class MailGunServiceImp implements MailGunService{
                     .text(getVerificationEmailBody(form.getEmail(), form.getName(), code))
                     .subject("verification Email")
                     .to(form.getEmail())
-                    .from("qortjr83@naver.com")
+                    .from("tjrhk01@gmail.com")
                     .build());
 
             customerService.changeCustomerValidateEmail(customerEntity.getId(),code);
