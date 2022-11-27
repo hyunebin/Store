@@ -38,9 +38,29 @@ public class CustomerServiceImp implements CustomerService{
         CustomerEntity customerEntity = customerRepository.findById(customerId).orElseThrow(()->new CustomException(ErrorCode.NOT_EXIST_USER));
 
         customerEntity.setVerificationCode(verificationCode);
-        customerEntity.setVerifyExpiredAt(LocalDateTime.now());
+        customerEntity.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
 
         return customerEntity.getVerifyExpiredAt();
 
     }
+
+
+    public void verifyEmail(String email, String code){
+        CustomerEntity customerEntity = customerRepository.findByEmail(email).orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_EMAIL));
+
+        if(customerEntity.isVerify()){
+            throw new CustomException(ErrorCode.ALREADY_ALLOW_USER);
+        }
+
+        if(!customerEntity.getVerificationCode().equals(code)){
+            throw new CustomException(ErrorCode.CODE_NOT_EQ);
+        }
+
+        if(customerEntity.getVerifyExpiredAt().isBefore(LocalDateTime.now())){
+            throw new CustomException(ErrorCode.AUTHENTICATION_TIMEOUT);
+        }
+
+         customerEntity.setVerify(true);
+    }
+
 }

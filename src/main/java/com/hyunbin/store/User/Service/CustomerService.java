@@ -12,4 +12,6 @@ public interface CustomerService {
 
     public LocalDateTime changeCustomerValidateEmail(Long customerId, String verificationCode);
 
+    public void verifyEmail(String email, String code);
+
 }

@@ -16,4 +16,12 @@ public class SignUpController {
     public ResponseEntity<String> customerSignUp(@RequestBody SignUp form){
         return ResponseEntity.ok(mailGunService.customerSignUp(form));
     }
+
+    @PutMapping("/verify/customer")
+    public ResponseEntity<String> verifyCustomer(String email, String code){
+        mailGunService.customerVerify(email,code);
+
+
+        return ResponseEntity.ok("인증이 완료되었습니다.");
+    }
 }

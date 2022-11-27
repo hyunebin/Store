@@ -7,6 +7,7 @@ import com.hyunbin.store.MailGun.Model.SendMailForm;
 import com.hyunbin.store.User.Entity.CustomerEntity;
 import com.hyunbin.store.User.Model.SignUp;
 import com.hyunbin.store.User.Service.CustomerService;
+import com.hyunbin.store.User.Service.CustomerServiceImp;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -57,10 +58,14 @@ public class MailGunServiceImp implements MailGunService{
         return stringBuilder.append("hello")
                             .append(name)
                             .append("! Plz Click Link for verification" + "\n")
-                            .append("http://localhost:8080/customer/signup/verify?email=")
+                            .append("http://localhost:8080/")
                             .append(email)
                             .append("&code=")
                             .append(code)
                             .toString();
+    }
+
+    public void customerVerify(String email, String code){
+        customerService.verifyEmail(email, code);
     }
 }
