@@ -24,6 +24,15 @@ public class ExceptionController {
         return ResponseEntity.badRequest().body(new ExceptionResponse(c.getMessage(),c.getErrorCode()));
     }
 
+    @ExceptionHandler({
+            SellerException.class
+    })
+
+    public ResponseEntity<ExceptionResponse> customRequestException(final SellerException c){
+        log.warn("api Exception :{}",c.getErrorCode());
+        return ResponseEntity.badRequest().body(new ExceptionResponse(c.getMessage(),c.getErrorCode()));
+    }
+
     @Getter
     @AllArgsConstructor
     @ToString
