@@ -5,16 +5,15 @@ import Config.common.UserVO;
 import com.hyunbin.store.Exception.CustomException;
 import com.hyunbin.store.Exception.ErrorCode;
 import com.hyunbin.store.User.Entity.CustomerEntity;
+import com.hyunbin.store.User.Model.ChangeBalanceForm;
 import com.hyunbin.store.User.Model.CustomerDto;
 import com.hyunbin.store.User.Repository.CustomerRepository;
+import com.hyunbin.store.User.Service.CustomerBalanceService;
 import com.hyunbin.store.User.Service.CustomerService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     private final CustomerService customerService;
     private final CustomerRepository customerRepository;
+    private final CustomerBalanceService customerBalanceService;
     private final JwtAuthenticationProvider provider;
     @GetMapping("/getInfo")
     public ResponseEntity<?> getInfo(@RequestHeader("X-AUTH-TOKEN") String token){
@@ -32,6 +32,13 @@ public class CustomerController {
         CustomerDto customerDto = CustomerDto.of(customerEntity);
 
         return ResponseEntity.ok().body(customerDto);
+    }
+
+    @PostMapping("/balance")
+    public ResponseEntity<?> changeBalance(@RequestHeader("X-AUTH-TOKEN") String token, @RequestBody ChangeBalanceForm form){
+        UserVO userVO = provider.getUserVo(token);
+
+        return ResponseEntity.ok(customerBalanceService.changeBalance(userVO.getId(), form).getCurrentMoney());
     }
 
 

@@ -12,8 +12,9 @@ import lombok.Setter;
 public class CustomerDto {
     Long Id;
     String email;
+    Integer balance;
 
     public static CustomerDto of(CustomerEntity customerEntity){
-        return new CustomerDto(customerEntity.getId(),customerEntity.getEmail());
+        return new CustomerDto(customerEntity.getId(),customerEntity.getEmail(),customerEntity.getBalance()==null?0: customerEntity.getBalance());
     }
 }
