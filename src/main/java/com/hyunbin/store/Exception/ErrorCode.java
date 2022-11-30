@@ -17,7 +17,10 @@ public enum ErrorCode {
 
     CODE_NOT_EQ(HttpStatus.BAD_REQUEST, "인증 코드가 일지하지 않습니다."),
 
-    AUTHENTICATION_TIMEOUT(HttpStatus.BAD_REQUEST, "인증 시간이 만료되었습니다.");
+    AUTHENTICATION_TIMEOUT(HttpStatus.BAD_REQUEST, "인증 시간이 만료되었습니다."),
+
+    //로그인
+    LOGIN_CHECK_FAIL(HttpStatus.BAD_REQUEST,"아이디나 패스워드를 확인해 주세요");
 
 
     private final HttpStatus httpStatus;

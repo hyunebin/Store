@@ -1,8 +1,11 @@
 package com.hyunbin.store.User.Service;
 
+import Config.JwtAuthenticationProvider;
+import Config.common.UserType;
 import com.hyunbin.store.Exception.CustomException;
 import com.hyunbin.store.Exception.ErrorCode;
 import com.hyunbin.store.User.Entity.CustomerEntity;
+import com.hyunbin.store.User.Model.SignIn;
 import com.hyunbin.store.User.Model.SignUp;
 import com.hyunbin.store.User.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class CustomerServiceImp implements CustomerService{
 
     private final CustomerRepository customerRepository;
+    private final JwtAuthenticationProvider provider;
 
     public CustomerEntity signUp(SignUp form){
 
@@ -44,7 +48,6 @@ public class CustomerServiceImp implements CustomerService{
 
     }
 
-
     public void verifyEmail(String email, String code){
         CustomerEntity customerEntity = customerRepository.findByEmail(email).orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_EMAIL));
 
@@ -60,7 +63,25 @@ public class CustomerServiceImp implements CustomerService{
             throw new CustomException(ErrorCode.AUTHENTICATION_TIMEOUT);
         }
 
-         customerEntity.setVerify(true);
+        customerEntity.setVerify(true);
+        customerRepository.save(customerEntity);
+    }
+
+    @Override
+    public String customerLoginToken(SignIn signIn) {
+        //로그인 가능 여부
+        Optional<CustomerEntity> optionalCustomerEntity = customerRepository.findByEmail(signIn.getEmail()).stream()
+                .filter( customer -> customer.getPassword().equals(signIn.getPassword())&& customer.isVerify())
+                .findFirst();
+
+        CustomerEntity customerEntity = optionalCustomerEntity.orElseThrow(()->new CustomException(ErrorCode.LOGIN_CHECK_FAIL));
+
+        //토큰을 발행
+        //provider를 만들어 사용
+
+
+        //토큰을 리턴
+        return provider.creatToken(customerEntity.getEmail(),customerEntity.getId(), UserType.CUSTOMER);
     }
 
 }

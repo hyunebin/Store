@@ -12,11 +12,12 @@ repositories {
     mavenCentral()
 }
 ext {
-    set('springCloudVersion',"2021.0.1")
+    set('springCloudVersion', "2021.0.1")
 }
 
 dependencies {
-   // implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation project(path: ":domain", configuration: 'default')
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
     // https://mvnrepository.com/artifact/org.springframework/spring-web
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -25,7 +26,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-envers
     implementation 'org.springframework.data:spring-data-envers:0.2.0.RELEASE'
 // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-        implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+// https://mvnrepository.com/artifact/org.apache.tomcat/tomcat
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat
+    implementation 'org.apache.tomcat:tomcat:10.0.27'
+
 
     //implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
