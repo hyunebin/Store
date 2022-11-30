@@ -3,8 +3,10 @@ package com.hyunbin.store.User.Service;
 import com.hyunbin.store.User.Entity.CustomerEntity;
 import com.hyunbin.store.User.Model.SignIn;
 import com.hyunbin.store.User.Model.SignUp;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
 
 public interface CustomerService {
     public CustomerEntity signUp(SignUp form);

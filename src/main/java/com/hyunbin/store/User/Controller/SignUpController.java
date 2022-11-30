@@ -26,13 +26,13 @@ public class SignUpController {
 
     @PostMapping("/seller")
     public ResponseEntity<String> sellerSignUp(@RequestBody SignUp form){
-        return ResponseEntity.ok(mailGunService.customerSignUp(form));
+        return ResponseEntity.ok(mailGunService.sellerSignUp(form));
     }
 
 
     @GetMapping("/seller/verify")
     public ResponseEntity<String> verifySeller(String email, String code){
-        mailGunService.customerVerify(email,code);
+        mailGunService.sellerVerify(email,code);
         return ResponseEntity.ok("인증이 완료되었습니다.");
     }
 }

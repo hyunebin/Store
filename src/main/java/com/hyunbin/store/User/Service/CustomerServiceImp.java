@@ -21,7 +21,8 @@ import java.util.Optional;
 public class CustomerServiceImp implements CustomerService{
 
     private final CustomerRepository customerRepository;
-    public final JwtAuthenticationProvider provider;
+    private final JwtAuthenticationProvider provider;
+
     public CustomerEntity signUp(SignUp form){
 
         CustomerEntity customerEntity = CustomerEntity.from(form);

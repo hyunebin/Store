@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserVO {
-    private Long id;
+    private Long Id;
     private String email;
 }

@@ -15,7 +15,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class jwtFilter implements Filter {
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
-    private final CustomerService customerService;
     private final CustomerRepository customerRepository;
 
     @Override

@@ -11,10 +11,10 @@ import com.hyunbin.store.User.Model.SignUp;
 import com.hyunbin.store.User.Repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,6 +37,7 @@ public class SellerServiceImp implements SellerService{
     }
 
     @Override
+    @Transactional
     public LocalDateTime changeCustomerValidateEmail(Long sellerId, String verificationCode) {
         SellerEntity sellerEntity = sellerRepository.findById(sellerId).orElseThrow(()->new SellerException(ErrorCode.NOT_EXIST_USER));
 
@@ -58,7 +59,6 @@ public class SellerServiceImp implements SellerService{
         if(!sellerEntity.getVerificationCode().equals(code)){
             throw new CustomException(ErrorCode.CODE_NOT_EQ);
         }
-
 
         if(sellerEntity.getVerifyExpiredAt().isBefore(LocalDateTime.now())){
             throw new SellerException(ErrorCode.AUTHENTICATION_TIMEOUT);

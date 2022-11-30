@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class CustomerDto {
-    Long id;
+    Long Id;
     String email;
 
     public static CustomerDto of(CustomerEntity customerEntity){

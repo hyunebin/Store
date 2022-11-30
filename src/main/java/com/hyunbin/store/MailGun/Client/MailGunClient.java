@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "mailgun" ,url = "https://api.mailgun.net/v3/")
 @Qualifier("mailgun")
+@FeignClient(name = "mailgun" ,url = "https://api.mailgun.net/v3/")
 public interface MailGunClient {
 
     @PostMapping("sandbox6621d2754f3a48b9bab13e98838aefce.mailgun.org/messages")
