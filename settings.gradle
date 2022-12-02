@@ -1,3 +1,4 @@
 rootProject.name = 'Store'
 include 'domain'
+include 'order-api'
 
