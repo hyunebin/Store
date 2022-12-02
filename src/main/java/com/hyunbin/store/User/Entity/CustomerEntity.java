@@ -32,6 +32,8 @@ public class CustomerEntity extends BaseEntity{
     private String verificationCode;
     private boolean verify;
 
+    @Column(columnDefinition = "int default 0")
+    private Integer balance;
     public static CustomerEntity from(SignUp form){
         return CustomerEntity.builder()
                 .phone(form.getPhone())
